@@ -1,4 +1,5 @@
 name: Build debug APK
+
 on:
   workflow_dispatch:
   push:
@@ -51,6 +52,35 @@ jobs:
           )
 
           print("Accessibility description fixed.")
+          PY
+
+      - name: Configure Java and Kotlin JVM target 17
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path("app/build.gradle.kts")
+          s = p.read_text(encoding="utf-8")
+
+          marker = "android {\n"
+          if s.count(marker) != 1:
+              raise SystemExit("Could not find unique android block")
+
+          if "sourceCompatibility = JavaVersion.VERSION_17" not in s:
+              snippet = """    compileOptions {
+                  sourceCompatibility = JavaVersion.VERSION_17
+                  targetCompatibility = JavaVersion.VERSION_17
+              }
+
+              kotlinOptions {
+                  jvmTarget = "17"
+              }
+
+          """
+              s = s.replace(marker, marker + snippet, 1)
+
+          p.write_text(s, encoding="utf-8")
+          print("Java and Kotlin JVM targets set to 17.")
           PY
 
       - name: Set up JDK 17
