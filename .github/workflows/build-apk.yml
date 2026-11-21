@@ -28,7 +28,7 @@ jobs:
         run: |
           mkdir -p /tmp/dch
           unzip -q -o DouyinCommentHelper-V1.zip -d /tmp/dch
-          cp -a /tmp/dch/DouyinCommentHelper-V1/app ./app
+          cp -a /tmp/dch/DouyinCommentHelper-V1/app/. ./app/
           cp -a /tmp/dch/DouyinCommentHelper-V1/build.gradle.kts .
           cp -a /tmp/dch/DouyinCommentHelper-V1/settings.gradle.kts .
           cp -a /tmp/dch/DouyinCommentHelper-V1/gradle.properties .
