@@ -1,3 +1,4 @@
+
 name: Build debug APK
 
 on:
@@ -12,10 +13,19 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Unpack Android project
+      - name: Unpack improved Android project
         run: |
-          unzip -o DouyinCommentHelper-V1-Source-Verified.zip
-          cp -a DouyinCommentHelper-V1/. .
+          if [ ! -f DouyinCommentHelper-V1-Improved-Source.zip ]; then
+            echo "Improved source ZIP not found"
+            exit 1
+          fi
+          mkdir -p /tmp/improved-source
+          unzip -o DouyinCommentHelper-V1-Improved-Source.zip -d /tmp/improved-source
+          if [ ! -d /tmp/improved-source/DouyinCommentHelper-V1 ]; then
+            echo "Android project folder not found in ZIP"
+            exit 1
+          fi
+          cp -a /tmp/improved-source/DouyinCommentHelper-V1/. .
 
       - name: Fix accessibility description
         run: |
