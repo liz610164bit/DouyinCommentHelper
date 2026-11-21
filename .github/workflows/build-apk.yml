@@ -33,6 +33,18 @@ jobs:
           cp -a /tmp/dch/DouyinCommentHelper-V1/settings.gradle.kts .
           cp -a /tmp/dch/DouyinCommentHelper-V1/gradle.properties .
 
+      - name: Fix accessibility description
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path("app/src/main/res/xml/accessibility_service_config.xml")
+          s = p.read_text(encoding="utf-8")
+          s = re.sub(r'\s+android:description="[^"]*"', '', s)
+          p.write_text(s, encoding="utf-8")
+          PY
+
       - name: Verify Android source files
         run: |
           test -f app/src/main/AndroidManifest.xml
