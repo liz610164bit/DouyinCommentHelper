@@ -32,7 +32,8 @@ jobs:
           cp -a /tmp/dch/DouyinCommentHelper-V1/build.gradle.kts .
           cp -a /tmp/dch/DouyinCommentHelper-V1/settings.gradle.kts .
           cp -a /tmp/dch/DouyinCommentHelper-V1/gradle.properties .
-                - name: Apply repository overrides
+
+      - name: Apply repository overrides
         run: |
           mkdir -p app/src/main/java/com/example/douyincommenthelper
           cp app/overrides/app/src/main/java/com/example/douyincommenthelper/CommentAccessibilityService.kt app/src/main/java/com/example/douyincommenthelper/CommentAccessibilityService.kt
