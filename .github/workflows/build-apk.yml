@@ -71,7 +71,7 @@ jobs:
           """
               gradle.write_text(g, encoding="utf-8")
           PY
-                - name: Align Java and Kotlin JVM targets
+ - name: Align Java and Kotlin JVM targets
         run: |
           cat >> app/build.gradle.kts <<'EOF'
 
